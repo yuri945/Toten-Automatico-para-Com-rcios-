@@ -30,3 +30,20 @@ def criar_conta():
         return redirect (url_for("dashboard"))
 
     return render_template("auth/cadastro.html", form=form_cadastro)
+
+@auth_bp.route("/login", methods = ["GET", "POST"])
+def login():
+
+    form_login = FormLogin()
+
+    if form_login.validate_on_submit():
+        usuario = Usuario.query.filter_by(email=form_login.email.data).first()
+
+        if usuario and usuario.checa_senha(form_login.senha.data):
+            login_user(usuario)
+            return redirect(url_for("auth.login"))
+        else:
+            flash("E-mail ou senha incorretos","erro")
+
+        
+    return render_template("homepage.html", form=form_login)
