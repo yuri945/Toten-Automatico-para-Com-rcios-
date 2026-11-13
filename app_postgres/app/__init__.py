@@ -15,8 +15,9 @@ def create_app():
     login_manager.init_app(app)
 
     from app import models  # noqa: F401  (o Migrate precisa enxergar os models)
+    from app.routes.auth import auth_bp
 
-    from app_postgres.app.routes.auth import auth_bp
+
     app.register_blueprint(auth_bp)
 
     return app

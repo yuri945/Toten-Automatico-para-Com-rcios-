@@ -45,5 +45,13 @@ def login():
         else:
             flash("E-mail ou senha incorretos","erro")
 
-        
     return render_template("homepage.html", form=form_login)
+
+
+@auth_bp.route("auth.login")
+@login_required
+def logout():
+    logout_user()
+    flash("você saiu da conta")
+    return redirect(url_for("auth.login"))
+
