@@ -1,11 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Login</h1>
-</body>
-</html>
+{# Tela de login: usa o FormLogin da rota auth.login.
+   Fica separada do cadastro porque cada tela tem seus próprios campos
+   e a sua própria mensagem de destaque. #}
+{% extends "auth/base_auth.html" %}
+{% from "_campos.html" import campo %}
+
+{% block titulo %}Entrar - Totem{% endblock %}
+
+{% block destaque %}
+  <h2 class="auth__titulo">Peça sem fila, retire com a sua senha.</h2>
+  <div class="senha-exemplo">
+    <span class="senha-exemplo__rotulo">Senha de retirada</span>
+    <span class="senha-exemplo__numero">012</span>
+  </div>
+{% endblock %}
+
+{% block formulario %}
+<form class="form" method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <h1 class="form__titulo">Entrar</h1>
+  <p class="form__sub">Use o e-mail e a senha do seu cadastro.</p>
+
+  {{ campo(form.email, "voce@exemplo.com") }}
+  {{ campo(form.senha, "Sua senha") }}
+
+  {{ form.botao_confirmacao(class="btn btn--primario") }}
+
+  <p class="form__rodape">
+    Ainda não tem conta? <a href="{{ url_for('auth.criar_conta') }}">Criar conta</a>
+  </p>
+</form>
+{% endblock %}

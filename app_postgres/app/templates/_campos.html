@@ -1,0 +1,12 @@
+   {# Macro que desenha um campo de formulário (rótulo, input e erros).
+      Fica separada para login e cadastro não repetirem esse bloco
+      em cada campo. #}
+   {% macro campo(field, placeholder="") %}
+     <div class="campo">
+       {{ field.label(class="campo__rotulo") }}
+       {{ field(class="campo__input", placeholder=placeholder) }}
+       {% for erro in field.errors %}
+         <span class="campo__erro">{{ erro }}</span>
+       {% endfor %}
+     </div>
+   {% endmacro %}

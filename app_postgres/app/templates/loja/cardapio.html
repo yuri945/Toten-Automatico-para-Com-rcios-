@@ -1,0 +1,72 @@
+{# Tela principal: categorias, produtos e carrinho do pedido.
+   Fica na pasta loja/ porque pertence ao Blueprint da loja, que ainda
+   vai ser criado. Os forms usam action="#" até as rotas existirem. #}
+{% extends "base.html" %}
+
+{% block titulo %}Cardápio - Totem{% endblock %}
+
+{% block corpo %}
+<header class="topo">
+  <div class="marca marca--cor">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle></svg>
+    <span class="marca__nome">Totem</span>
+  </div>
+  <div class="topo__usuario">
+    <span>Olá, {{ current_user.username }}</span>
+    <a class="topo__sair" href="{{ url_for('auth.logout') }}">Sair</a>
+  </div>
+</header>
+
+<div class="cardapio">
+  <nav class="categorias" aria-label="Categorias">
+    {% for c in categorias %}
+      <a class="categoria {% if c.id == categoria_atual.id %}categoria--ativa{% endif %}" href="#">{{ c.nome }}</a>
+    {% endfor %}
+  </nav>
+
+  <main class="produtos">
+    <h1 class="produtos__titulo">{{ categoria_atual.nome }}</h1>
+    <div class="produtos__grade">
+      {% for p in produtos %}
+        <article class="produto">
+          <div class="produto__foto"></div>
+          <div>
+            <h2 class="produto__nome">{{ p.nome }}</h2>
+            <span class="produto__preco">{{ ("R$ %.2f"|format(p.preco)).replace(".", ",") }}</span>
+          </div>
+          <form method="POST" action="#">
+            <button class="produto__botao" type="submit">Adicionar</button>
+          </form>
+        </article>
+      {% endfor %}
+    </div>
+  </main>
+
+  <aside class="carrinho">
+    <div>
+      <h2 class="carrinho__titulo">Seu pedido</h2>
+      {% for item in itens_carrinho %}
+        <div class="carrinho__item">
+          <div>
+            <span class="carrinho__nome">{{ item.nome }}</span>
+            <span class="carrinho__qtd">{{ item.quantidade }} unidade(s)</span>
+          </div>
+          <span class="carrinho__preco">{{ ("R$ %.2f"|format(item.subtotal)).replace(".", ",") }}</span>
+        </div>
+      {% else %}
+        <p class="carrinho__vazio">Nenhum item ainda.</p>
+      {% endfor %}
+    </div>
+
+    <div>
+      <div class="carrinho__total">
+        <span>Total</span>
+        <strong>{{ ("R$ %.2f"|format(total)).replace(".", ",") }}</strong>
+      </div>
+      <form method="POST" action="#">
+        <button class="btn btn--primario" type="submit">Finalizar pedido</button>
+      </form>
+    </div>
+  </aside>
+</div>
+{% endblock %}

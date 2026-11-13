@@ -1,0 +1,190 @@
+/* Estilo do totem: cores, formulários, login/cadastro e cardápio.
+   Fica em um arquivo só para todas as páginas terem o mesmo visual,
+   com as cores nas variáveis do topo. O mobile fica nos @media
+   no final, sem alterar o desktop. */
+
+:root {
+  --vermelho: #C7361F;
+  --creme: #FFF6EA;
+  --marrom: #2B1B14;
+  --suave: #6B5448;
+  --borda: #EBDCCB;
+  --borda-input: #A58C7C;
+  --foto: #FBE3C8;
+  --branco: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--creme);
+  color: var(--marrom);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+h1, h2, .marca__nome, .btn { font-family: "Fredoka", system-ui, sans-serif; }
+a { color: var(--vermelho); font-weight: 600; }
+:focus-visible { outline: 3px solid var(--marrom); outline-offset: 2px; }
+
+/* Botão principal */
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: 72px; border: 0; border-radius: 20px;
+  font-size: 26px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.btn--primario { background: var(--vermelho); color: var(--branco); }
+.btn:hover { filter: brightness(0.95); }
+
+/* Avisos (flash) */
+.avisos {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  width: min(90vw, 480px); z-index: 10;
+}
+.aviso {
+  padding: 14px 18px; border-radius: 14px; font-size: 17px; font-weight: 500;
+  background: var(--branco); border: 1px solid var(--borda);
+}
+.aviso--erro { background: #FDE8E4; border-color: #E8A99D; color: #8F2412; }
+.aviso--sucesso { background: #E3F4E5; border-color: #9FCFA6; color: #1E5B2A; }
+
+/* Marca */
+.marca { display: flex; align-items: center; gap: 12px; }
+.marca__nome { font-size: 36px; font-weight: 600; }
+.marca--cor { color: var(--vermelho); }
+.marca--cor .marca__nome { font-size: 30px; }
+
+/* Login e cadastro */
+.auth { display: flex; min-height: 100vh; }
+.auth__painel {
+  width: 520px; flex-shrink: 0; padding: 56px;
+  background: var(--vermelho); color: var(--branco);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
+}
+.auth__destaque { display: flex; flex-direction: column; gap: 28px; }
+.auth__titulo { margin: 0; font-size: 52px; line-height: 1.05; font-weight: 600; }
+.auth__rodape { margin: 0; font-size: 15px; }
+.auth__conteudo {
+  flex: 1; display: flex; align-items: center; justify-content: center; padding: 32px;
+}
+
+.senha-exemplo {
+  align-self: flex-start; display: flex; flex-direction: column; gap: 4px;
+  padding: 20px 32px; border-radius: 20px; background: var(--branco); color: var(--marrom);
+}
+.senha-exemplo__rotulo { font-size: 15px; font-weight: 500; color: var(--suave); }
+.senha-exemplo__numero {
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-size: 64px; line-height: 1; font-weight: 700; color: var(--vermelho);
+}
+
+.passos { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 18px; font-size: 20px; }
+.passos li::before { content: "\2713"; margin-right: 14px; font-weight: 700; }
+
+/* Formulários */
+.form { width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 22px; }
+.form--largo { max-width: 540px; gap: 18px; }
+.form__titulo { margin: 0; font-size: 44px; font-weight: 600; }
+.form__sub { margin: -10px 0 0; font-size: 18px; color: var(--suave); }
+.form__linha { display: flex; gap: 16px; }
+.form__linha .campo { flex: 1; min-width: 0; }
+.form__rodape { margin: 0; font-size: 18px; text-align: center; color: var(--suave); }
+
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo__rotulo { font-size: 17px; font-weight: 600; }
+.campo__input {
+  height: 60px; padding: 0 20px; width: 100%;
+  border: 2px solid var(--borda-input); border-radius: 16px;
+  background: var(--branco); color: var(--marrom); font: inherit; font-size: 19px;
+}
+.campo__input::placeholder { color: #7A6256; }
+.campo__erro { font-size: 15px; font-weight: 500; color: #8F2412; }
+
+/* Cardápio */
+.topo {
+  height: 72px; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--branco); border-bottom: 1px solid var(--borda);
+}
+.topo__usuario { display: flex; align-items: center; gap: 20px; font-size: 18px; color: var(--suave); }
+.topo__sair {
+  padding: 10px 20px; border: 2px solid var(--marrom); border-radius: 14px;
+  color: var(--marrom); font-size: 16px; text-decoration: none;
+}
+
+.cardapio { display: grid; grid-template-columns: 200px 1fr 340px; min-height: calc(100vh - 72px); }
+
+.categorias {
+  padding: 24px 16px; display: flex; flex-direction: column; gap: 10px;
+  border-right: 1px solid var(--borda);
+}
+.categoria {
+  display: block; padding: 16px 20px; border-radius: 16px; color: var(--marrom);
+  font-family: "Fredoka", system-ui, sans-serif; font-size: 22px; font-weight: 500; text-decoration: none;
+}
+.categoria--ativa { background: var(--marrom); color: var(--branco); }
+
+.produtos { padding: 24px 28px; min-width: 0; }
+.produtos__titulo { margin: 0 0 18px; font-size: 38px; font-weight: 600; }
+.produtos__grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+
+.produto {
+  padding: 12px; border-radius: 20px; background: var(--branco); border: 1px solid var(--borda);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.produto__foto { height: 104px; border-radius: 14px; background: var(--foto); }
+.produto__nome { margin: 0; font-family: "Inter", system-ui, sans-serif; font-size: 18px; font-weight: 600; }
+.produto__preco {
+  font-family: "Fredoka", system-ui, sans-serif; font-size: 22px; font-weight: 600; color: var(--vermelho);
+}
+.produto__botao {
+  width: 100%; height: 46px; border: 2px solid var(--vermelho); border-radius: 14px;
+  background: var(--branco); color: var(--vermelho); font-size: 17px; font-weight: 600; cursor: pointer;
+}
+
+.carrinho {
+  padding: 24px; background: var(--branco); border-left: 1px solid var(--borda);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+}
+.carrinho__titulo { margin: 0 0 12px; font-size: 28px; font-weight: 600; }
+.carrinho__item {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid var(--borda);
+}
+.carrinho__nome { display: block; font-size: 17px; font-weight: 600; }
+.carrinho__qtd { display: block; font-size: 15px; color: var(--suave); }
+.carrinho__preco { font-size: 17px; font-weight: 600; }
+.carrinho__vazio { color: var(--suave); }
+.carrinho__total {
+  display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;
+  font-size: 18px; color: var(--suave);
+}
+.carrinho__total strong {
+  font-family: "Fredoka", system-ui, sans-serif; font-size: 38px; font-weight: 700; color: var(--marrom);
+}
+
+/* Tablet e celular */
+@media (max-width: 1000px) {
+  .cardapio { grid-template-columns: 1fr; min-height: 0; }
+  .categorias { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--borda); padding: 16px; }
+  .categoria { white-space: nowrap; }
+  .produtos__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .carrinho { border-left: 0; border-top: 1px solid var(--borda); }
+}
+
+@media (max-width: 860px) {
+  .auth { flex-direction: column; }
+  .auth__painel { width: auto; padding: 24px 20px; }
+  .auth__destaque, .auth__rodape { display: none; }
+  .auth__conteudo { padding: 28px 20px; align-items: flex-start; }
+  .form__titulo { font-size: 36px; }
+  .form__linha { flex-direction: column; }
+}
+
+@media (max-width: 520px) {
+  .topo { padding: 0 16px; }
+  .topo__usuario span { display: none; }
+  .produtos { padding: 20px 16px; }
+  .produtos__grade { grid-template-columns: 1fr; }
+}

@@ -1,11 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{# Tela de cadastro: usa o FormCadastro da rota auth.criar_conta.
+   Fica separada do login porque tem mais campos (CPF, confirmação de senha)
+   e os passos do pedido no painel. #}
+{% extends "auth/base_auth.html" %}
+{% from "_campos.html" import campo %}
+
+{% block titulo %}Criar conta - Totem{% endblock %}
+
+{% block destaque %}
+  <h2 class="auth__titulo">Crie sua conta em um minuto.</h2>
+  <ul class="passos">
+    <li>Monte o pedido no cardápio</li>
+    <li>Finalize e receba a sua senha</li>
+    <li>Retire quando for chamado</li>
+  </ul>
+{% endblock %}
+
+{% block formulario %}
+<form class="form form--largo" method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <h1 class="form__titulo">Criar conta</h1>
+
+  {{ campo(form.username, "Como devemos te chamar") }}
+  {{ campo(form.email, "voce@exemplo.com") }}
+  {{ campo(form.cpf, "000.000.000-00") }}
+
+  <div class="form__linha">
+    {{ campo(form.senha, "6 a 20 caracteres") }}
+    {{ campo(form.confirmacao_senha, "Repita a senha") }}
+  </div>
+
+  {{ form.botao_confirmacao(class="btn btn--primario") }}
+
+  <p class="form__rodape">
+    Já tem conta? <a href="{{ url_for('auth.login') }}">Entrar</a>
+  </p>
+</form>
+{% endblock %}

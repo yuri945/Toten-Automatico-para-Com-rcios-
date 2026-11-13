@@ -27,7 +27,7 @@ def criar_conta():
 
         flash("Conta criada com sucesso!")
 
-        return redirect (url_for("dashboard"))
+        return redirect (url_for("auth.cardapio"))
 
     return render_template("auth/cadastro.html", form=form_cadastro)
 
@@ -45,10 +45,10 @@ def login():
         else:
             flash("E-mail ou senha incorretos","erro")
 
-    return render_template("homepage.html", form=form_login)
+    return render_template("auth/login.html", form=form_login)
 
 
-@auth_bp.route("auth.login")
+@auth_bp.route("/logout")
 @login_required
 def logout():
     logout_user()

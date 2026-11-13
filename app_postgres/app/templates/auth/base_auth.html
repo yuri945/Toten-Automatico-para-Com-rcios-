@@ -1,0 +1,23 @@
+{# Layout de login e cadastro: painel vermelho de um lado e formulário do outro.
+   Fica separado para as duas telas dividirem o mesmo painel
+   e só trocarem o texto de destaque e o formulário. #}
+{% extends "base.html" %}
+
+{% block corpo %}
+<div class="auth">
+  <section class="auth__painel">
+    <div class="marca">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="4"></circle></svg>
+      <span class="marca__nome">Totem</span>
+    </div>
+    <div class="auth__destaque">
+      {% block destaque %}{% endblock %}
+    </div>
+    <p class="auth__rodape">Autoatendimento do restaurante</p>
+  </section>
+
+  <main class="auth__conteudo">
+    {% block formulario %}{% endblock %}
+  </main>
+</div>
+{% endblock %}
